@@ -1,17 +1,23 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useFavorites } from '../context/FavoritesContext'; // Import the favorites context
-import { useCart } from '../context/CartContext'; // Import the cart context
 
-export default function Card({ filter, name, image, price, onPress, description }) {
+import { useFavorites } from "../context/FavoritesContext";
+import { useCart } from "../context/CartContext";
+
+export default function Card({
+  filter,
+  name,
+  image,
+  price,
+  onPress,
+  description,
+}) {
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
-  const { addToCart, removeFromCart, isInCart } = useCart(); // Destructure cart context functions
+  const { addToCart, removeFromCart, isInCart } = useCart();
 
-  // Wrap item in an object so it's compatible with the context functions
   const item = { name, image, price, filter, description };
 
-  // Determine if the current item is a favorite
   const isItemFavorite = isFavorite(item);
 
   const handleFavoriteToggle = () => {
@@ -22,14 +28,12 @@ export default function Card({ filter, name, image, price, onPress, description 
     }
   };
 
-  // Handle adding to cart
   const handleAddToCart = () => {
-    addToCart(item); // Add item to cart
+    addToCart(item);
   };
 
-  // Handle removing from cart
   const handleRemoveFromCart = () => {
-    removeFromCart(item); // Remove item from cart
+    removeFromCart(item);
   };
 
   return (
@@ -54,7 +58,7 @@ export default function Card({ filter, name, image, price, onPress, description 
         </View>
         <TouchableOpacity
           style={styles.plus}
-          onPress={isInCart(item) ? handleRemoveFromCart : handleAddToCart} 
+          onPress={isInCart(item) ? handleRemoveFromCart : handleAddToCart}
         >
           <Text style={styles.plusText}>{isInCart(item) ? "Remove" : "+"}</Text>
         </TouchableOpacity>

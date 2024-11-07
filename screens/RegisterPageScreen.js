@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import GoogleButton from "../components/GoogleButton";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
+import { firebase } from "../firebase";  // Import Firebase configuration
 
 export default function RegisterPageScreen() {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ export default function RegisterPageScreen() {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
+  
   const navigation = useNavigation();
 
   const handleRegister = async () => {
@@ -60,6 +61,20 @@ export default function RegisterPageScreen() {
       navigation.navigate('signin');
     } catch (error) {
       console.error('Error saving data to AsyncStorage', error);
+    }
+  };
+
+  // Handle Google sign-in success (if Google authentication is used)
+  const handleGoogleLogin = async (userCredential) => {
+    try {
+      const user = userCredential.user;
+      await AsyncStorage.setItem('userName', user.displayName || user.email);
+      await AsyncStorage.setItem('email', user.email);
+      // Optionally, you can store other user info such as photo URL, etc.
+      console.log('Google user data stored:', user);
+      navigation.navigate('home');  // Or navigate to a different screen as required
+    } catch (error) {
+      console.error('Error saving Google user data:', error);
     }
   };
 
