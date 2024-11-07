@@ -81,6 +81,9 @@ export default function TabNavigation() {
         name="cart"
         component={CartScreen}
         options={{
+          tabBarStyle:{
+            display:'none'
+          },
           headerLeft: () => (
             <TouchableOpacity
               style={{ left: 20 }}

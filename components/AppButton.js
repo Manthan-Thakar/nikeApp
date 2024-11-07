@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
-export default function AppButton({onPress,text}) {
+export default function AppButton({onPress,text,style}) {
   return (
-    <TouchableOpacity style={styles.buttonBox} onPress={onPress}>
+    <TouchableOpacity style={[styles.buttonBox , {style}]} onPress={onPress}>
         <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   )
@@ -11,7 +11,7 @@ export default function AppButton({onPress,text}) {
 
 const styles = StyleSheet.create({
     buttonBox:{
-        marginTop:60,
+        marginTop:40,
         backgroundColor:'#0D6EFD',
         width:335,
         height:50,

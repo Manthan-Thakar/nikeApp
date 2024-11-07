@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     justifyContent: "center",
-    height: 600,
+    height: 550,
     width: "100%",
     backgroundColor: colors.backgroundColor,
   },

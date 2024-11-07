@@ -1,29 +1,42 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useFavorites } from '../context/FavoritesContext'; // Import the context
+import { useFavorites } from '../context/FavoritesContext'; // Import the favorites context
+import { useCart } from '../context/CartContext'; // Import the cart context
 
-export default function Card({ filter, name, image, price ,onPress}) {
-  const { addFavorite, removeFavorite, isFavorite } = useFavorites(); // Get functions from context
+export default function Card({ filter, name, image, price, onPress, description }) {
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { addToCart, removeFromCart, isInCart } = useCart(); // Destructure cart context functions
 
-  // Check if the current item is a favorite
-  const isItemFavorite = isFavorite({ name, image, price, filter });
+  // Wrap item in an object so it's compatible with the context functions
+  const item = { name, image, price, filter, description };
 
-  // Handle toggling the favorite
+  // Determine if the current item is a favorite
+  const isItemFavorite = isFavorite(item);
+
   const handleFavoriteToggle = () => {
     if (isItemFavorite) {
-      removeFavorite({ name, image, price, filter });
+      removeFavorite(item);
     } else {
-      addFavorite({ name, image, price, filter });
+      addFavorite(item);
     }
+  };
+
+  // Handle adding to cart
+  const handleAddToCart = () => {
+    addToCart(item); // Add item to cart
+  };
+
+  // Handle removing from cart
+  const handleRemoveFromCart = () => {
+    removeFromCart(item); // Remove item from cart
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View>
         <FontAwesome
-          name={isItemFavorite ? "heart" : "heart-o"} // Red heart if favorite, outline if not
+          name={isItemFavorite ? "heart" : "heart-o"}
           size={24}
           color={isItemFavorite ? "red" : "black"}
           onPress={handleFavoriteToggle}
@@ -39,9 +52,12 @@ export default function Card({ filter, name, image, price ,onPress}) {
           </Text>
           <Text style={styles.price}>${price}</Text>
         </View>
-        <View style={styles.plus}>
-          <Text style={styles.plusText}>+</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.plus}
+          onPress={isInCart(item) ? handleRemoveFromCart : handleAddToCart} 
+        >
+          <Text style={styles.plusText}>{isInCart(item) ? "Remove" : "+"}</Text>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -89,7 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: "medium",
   },
   name: {
-    width: 90,
+    width: 80,
     marginTop: 8,
     fontSize: 16,
     color: "#6A6A6A",

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   signInWithGoogle: {
     borderColor: "#d8dce3",
     flexDirection: "row",
-    marginTop: 50,
+    marginTop: 30,
     backgroundColor: "#F7F7F9",
     borderWidth: 1,
     paddingHorizontal: 50,

@@ -11,6 +11,7 @@ import TabNavigation from './TabNavigation'; // Assuming this is your tab naviga
 import { View ,Text} from 'react-native';
 import OrdersScreen from '../screens/OrdersScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SigninScreen from '../screens/SigninScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,9 +25,10 @@ export default function DrawerNavigation() {
       >
         {/* <Drawer.Screen name="home" component={HomeScreen} /> */}
        
+        <Drawer.Screen name='tab' component={TabNavigation}/>
         <Drawer.Screen name="settings" component={SettingsScreen} />
         <Drawer.Screen name='orders' component={OrdersScreen}/>
-        <Drawer.Screen name='tab' component={TabNavigation}/>
+        <Drawer.Screen name='signin' component={SigninScreen}/>
       </Drawer.Navigator>
    
   );

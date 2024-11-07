@@ -32,6 +32,7 @@ const FavoriteScreen = () => {
                 name={item.name}
                 price={item.price}
                 fav={fav} 
+                onPress={()=>navigation.navigate('details',{item})}
               />
             );
           }}

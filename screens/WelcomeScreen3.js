@@ -4,8 +4,8 @@ import { colors } from "../colors/colors";
 import { useNavigation } from "@react-navigation/native";
 
 export default function WelcomeScreen3() {
-  const navigation= useNavigation();
-    return (
+  const navigation = useNavigation();
+  return (
     <View style={styles.container}>
       <View style={styles.style1}>
         <Image
@@ -31,7 +31,7 @@ export default function WelcomeScreen3() {
         <View style={styles.textBox}>
           <Text style={styles.text}>You Have the Power To</Text>
           <Text style={styles.description}>
-          There Are Many Beautiful And Attractive Plants To Your Room
+            There Are Many Beautiful And Attractive Plants To Your Room
           </Text>
         </View>
 
@@ -46,7 +46,10 @@ export default function WelcomeScreen3() {
         />
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('welcome1')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("signin")}
+      >
         <Text style={styles.buttonText}>{"Next"}</Text>
       </TouchableOpacity>
     </View>

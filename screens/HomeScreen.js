@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import { useFavorites } from "../context/FavoritesContext"; // Import context
 import { useNavigation } from '@react-navigation/native';
 
-
+import Screen from "../components/Screen";
 import data from "../data/data";
 
 
@@ -19,9 +19,9 @@ export default function HomeScreen() {
   };
   
   return (
-    <ScrollView >
-     <View style={styles.container}>
-      <View style={styles.dContainer}>
+    <>
+    <Screen>
+    <View style={styles.dContainer}>
       <TouchableOpacity style={styles.button} onPress={toggleDrawer}>
      <Image source={require('../assets/nike/drawerIcon.png')} style={styles.drawerIcon}/>
     </TouchableOpacity>
@@ -32,10 +32,13 @@ export default function HomeScreen() {
         />
         <Text style={styles.text}>Explore</Text>
         </View>
-        <View style={styles.myCart}>
+        <TouchableOpacity style={styles.myCart} onPress={()=>navigation.navigate('cart')}>
             <Image source={require('../assets/nike/cart2.png')} style={styles.cartIcon}/>
-        </View>
+        </TouchableOpacity>
       </View>
+    <ScrollView showsVerticalScrollIndicator={false} >
+     <View style={styles.container}>
+      
       <View style={styles.searchComponents}>
         <View style={styles.searchBar}>
           <Image source={require("../assets/nike/search.png")} />
@@ -112,25 +115,28 @@ export default function HomeScreen() {
       </View>
       </View>
     </ScrollView>
+    </Screen>
+    </>
   );
 }
 
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:30,
+    // marginTop:30,
     flex:1,
     alignItems:'center',
     
     backgroundColor: "#F7F7F9",
   },
   dContainer:{
-
+    
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
-    flex:1,
-    width:'100%'
+    // flex:1,
+    width:'100%',
+    height:50,
   },
   button:{
         
@@ -155,6 +161,7 @@ myCart:{
   marginRight:20
 },
   searchComponents: {
+    marginTop:20,
     width: "90%",
     flexDirection: "row",
     alignItems: "center",
@@ -172,6 +179,7 @@ myCart:{
     flexDirection: "row",
   },
   selectCategory: {
+    
     width: "90%",
   },
   selectCategoryText: {

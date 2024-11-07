@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     marginTop: 20,
-    
   },
   profilePicture: {
     height: 100,
